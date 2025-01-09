@@ -1,0 +1,18 @@
+[project]
+name = "weather-application"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Yaronmd",email = "yaronmord@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "tk (>=0.1.0,<0.2.0)",
+    "pyqt5 (>=5.15.11,<6.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
