@@ -2,6 +2,14 @@ import asyncio
 import aiohttp
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QComboBox, QWidget, QLabel, QStackedWidget
 from PyQt5.QtCore import Qt
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get the API key from the environment variable
+API_KEY = os.getenv("API_KEY")
 
 countries = {
     "Israel": {"latitude": 31.0461, "longitude": 34.8516},
@@ -26,7 +34,6 @@ countries = {
     "Turkey": {"latitude": 38.9637, "longitude": 35.2433},
 }
 
-API_KEY = "ef28c3fcd6a697bfe6c57a1d64ca32b0"  # Replace with your actual API key
 API_URL = "http://api.openweathermap.org/data/2.5/weather"
 
 
