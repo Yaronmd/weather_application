@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QVBoxLayout, QPushButton, QWidget, QLabel,QSizePolicy
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap,QFont
+from PyQt5.QtGui import QPixmap,QFont,QRegion, QPainterPath
 import sys
 import requests
 from io import BytesIO
@@ -18,7 +18,7 @@ class WeaterPage(QWidget):
 
         self.image_label = QLabel(self)
         self.image_label.setAlignment(Qt.AlignCenter)
-        self.image_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        # self.image_label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
 
         layout.addWidget(self.image_label)
 
@@ -64,7 +64,7 @@ class WeaterPage(QWidget):
          if weather_data:
              return weather_data["sys"]["country"].lower()
 
-    def set_main_label(self,weather_data):
+    def set_contry_flag_label(self,weather_data):
         if weather_data:
                 # Download the image from the URL
             url = f'https://flagicons.lipis.dev/flags/1x1/{self.get_contry_data(weather_data)}.svg'
@@ -76,10 +76,19 @@ class WeaterPage(QWidget):
                 if pixmap.loadFromData(image_data.read()):
                     # Scale pixmap to 16x16 pixels
                     scaled_pixmap = pixmap.scaled(24, 24, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+
+                    # Create a circular region mask for the QLabel
+                    path = QPainterPath()
+                    radius = min(scaled_pixmap.width(), scaled_pixmap.height()) // 2
+                    path.addEllipse(0, 0, radius * 2, radius * 2)
+                    region = QRegion(path.toFillPolygon().toPolygon())
                     # Set scaled pixmap to label
                     self.image_label.setPixmap(scaled_pixmap)
                     # Resize label to fit pixmap
                     self.image_label.setFixedSize(scaled_pixmap.size())
+                    self.image_label.setMask(region)
+            
+
                 else:
                     self.image_label.setText("Failed to load image")
             else:
