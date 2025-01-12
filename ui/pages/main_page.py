@@ -15,7 +15,7 @@ class Page1(QWidget):
         self.main_window = main_window  # Store reference to the main window
 
         layout = QVBoxLayout(self)
-        layout.setAlignment(Qt.AlignCenter)
+        layout.setAlignment(Qt.AlignTop)
 
         # Add dropdown to page 1
         self.dropdown = QComboBox(self)
