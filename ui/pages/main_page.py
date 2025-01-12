@@ -48,7 +48,7 @@ class Page1(QWidget):
         weather_data = loop.run_until_complete(fetch_weather(lat, lon))
 
         if weather_data:
-            self.main_window.page2.set_main_label(weather_data)
+            self.main_window.page2.set_contry_flag_label(weather_data)
             self.main_window.page2.set_weather_data(weather_data)  # Pass weather data to page2
         else:
             self.main_window.page2.set_weather_data(None)

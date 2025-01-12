@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QComboBox, QWidget, QLabel, QStackedWidget
 from PyQt5.QtCore import Qt
-
+from PyQt5.QtGui import QRegion, QPainterPath
 from ui.pages.main_page import Page1
 from ui.pages.weather_page import WeaterPage
 
@@ -9,8 +9,8 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Next Page Example")
-        self.setGeometry(100, 100, 400, 300)
-
+        self.setGeometry(100, 100, 300, 300)
+        self.setWindowFlags(Qt.FramelessWindowHint)
         # Create a stacked widget for managing pages
         self.stack = QStackedWidget(self)
         self.setCentralWidget(self.stack)
@@ -22,6 +22,26 @@ class MainWindow(QMainWindow):
         # Add pages to the stack
         self.stack.addWidget(self.page1)
         self.stack.addWidget(self.page2)
+
+        self.make_window_circular()
+
+    def make_window_circular(self):
+        width = self.width()
+        height = self.height()
+
+        # Create a circular path and region
+        path = QPainterPath()
+        radius = min(width, height) // 2  # Ensure it's a perfect circle
+        path.addEllipse(0, 0, radius * 2, radius * 2)
+        circular_region = QRegion(path.toFillPolygon().toPolygon())
+
+        # Apply the circular region as the window mask
+        self.setMask(circular_region)
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        # Reapply the circular mask when the window is resized
+        self.make_window_circular()
 
 
 if __name__ == "__main__":
