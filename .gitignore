@@ -1,0 +1,39 @@
+# Byte-compiled / intermediate files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Logs
+*.log
+
+# Environment Variables
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Virtual environments
+venv/
+.env/
+
+# Python packages
+*.egg-info/
+dist/
+build/
+*.egg
+
+# PyQt-specific files
+*.pyqt5.*
+
+# API Keys or configuration files
+settings.toml
+config.json
+
+# IDE-specific files
+.vscode/
+.idea/
+*.iml
+
+# Poetry-specific
+poetry.lock
