@@ -8,7 +8,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setGeometry(100, 100, 100, 100)
+        self.setGeometry(100, 100, 200, 200)
         # self.setWindowFlags(Qt.FramelessWindowHint)
         # Create a stacked widget for managing pages
         self.stack = QStackedWidget(self)
