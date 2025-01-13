@@ -41,9 +41,11 @@ class Page1(QWidget):
         # Add Next button to page 1
         self.next_button = QPushButton("Next", self)
         self.next_button.clicked.connect(self.next_page)
+        self.next_button.setEnabled(False)
         self.next_button.setStyleSheet(
-            "background-color: green; color: white; border-radius: 10px; padding: 5px;"
+            "background-color: gray; color: white; border-radius: 10px; padding: 5px;"
         )
+       
         self.layout.addWidget(self.next_button)
 
         # Add Exit button to page 1
@@ -71,6 +73,7 @@ class Page1(QWidget):
                 self.main_window.page2.set_weather_data(None)
 
             self.stack.setCurrentWidget(self.main_window.page2)
+   
 
     def exit_app(self):
         QApplication.quit()
@@ -93,6 +96,10 @@ class Page1(QWidget):
         result = google_api.fetch_lat_lon(location)
         if result:
             self.lat,  self.lon = result
+            self.next_button.setEnabled(True)
+            self.next_button.setStyleSheet(
+            "background-color: green; color: white; border-radius: 10px; padding: 5px;"
+        )
         else:
             self.location_details.setText("Failed to fetch location details")
 
